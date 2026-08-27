@@ -1,26 +1,68 @@
 @import "tailwindcss";
 
+/* Tokens de diseño: paleta de colores del consultorio. Todos los valores de color de la app se derivan de estas variables, lo que permite cambiar la paleta desde un solo lugar. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --cream: #f6f3ee;
+  --cream-dark: #ebe6dc;
+  --ink: #2f2c28;
+  --muted: #6b6560;
+  --sage: #6f8f74;
+  --sage-dark: #4f6b54;
+  --sage-soft: #dce6dc;
+  --white: #fffcf8;
 }
 
+/* Mapeo de tokens CSS al sistema de colores y fuentes de Tailwind v4. El bloque @theme inline expone las variables CSS como utilidades de Tailwind (ej. bg-sage, text-ink). */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-cream: var(--cream);
+  --color-cream-dark: var(--cream-dark);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-sage: var(--sage);
+  --color-sage-dark: var(--sage-dark);
+  --color-sage-soft: var(--sage-soft);
+  --color-background: var(--cream);
+  --color-foreground: var(--ink);
+  --font-sans: var(--font-source), "Source Sans 3", system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Estilo base del body: fondo crema y tipografía principal. */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-source), "Source Sans 3", system-ui, sans-serif;
+}
+
+/* Color de selección de texto: mantiene la identidad visual también en el texto seleccionado. */
+::selection {
+  background: var(--sage-soft);
+  color: var(--ink);
+}
+
+/* Clase de protección del contenido del plan asignado al paciente. Desactiva la selección de texto para dificultar la copia del contenido protegido. */
+.plan-protected {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Capa de marca de agua sobre el contenido protegido. pointer-events none para que no interfiera con la interacción, z-index 20 para quedar por encima del contenido. */
+.watermark-layer {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 20;
+}
+
+/* Cada span es una instancia del email del paciente girada 28 grados. El color semitransparente lo hace visible pero no invasivo. */
+.watermark-layer span {
+  display: block;
+  transform: rotate(-28deg);
+  color: rgb(79 107 84 / 0.14);
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }

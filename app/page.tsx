@@ -1,69 +1,140 @@
 import Image from "next/image";
+import Link from "next/link";
+import { RecipeCard } from "@/components/recipes/RecipeCard";
+import { plans } from "@/lib/data/plans";
+import { recipes } from "@/lib/data/recipes";
+import { testimonials } from "@/lib/data/testimonials";
+import { site } from "@/lib/site";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <>
+      {/* Hero: imagen de portada con overlay oscuro y call-to-action. Usa position:fill de next/image para cubrir el contenedor sin definir dimensiones fijas. */}
+      <section className="relative min-h-[78vh] overflow-hidden">
         <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
+          src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=2000&q=80"
+          alt="Mesa con alimentos frescos"
+          fill
           priority
+          className="object-cover"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+        <div className="absolute inset-0 bg-ink/45" />
+        <div className="relative mx-auto flex min-h-[78vh] max-w-6xl flex-col justify-center px-4 py-24 text-white md:px-6">
+          <p className="text-xs uppercase tracking-[0.28em]">
+            Hola, soy {site.professional.firstName}
           </p>
+          <h1 className="mt-4 max-w-2xl font-serif text-5xl leading-tight md:text-7xl">
+            Tu nutricionista en Gualeguaychú
+          </h1>
+          <p className="mt-5 max-w-xl text-lg text-white/85">{site.tagline}</p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href="/sobre-mi"
+              className="rounded-full bg-sage px-6 py-3 text-xs font-semibold uppercase tracking-[0.16em] text-white hover:bg-sage-dark"
+            >
+              Conóceme
+            </Link>
+            <Link
+              href="/planes"
+              className="rounded-full bg-white px-6 py-3 text-xs font-semibold uppercase tracking-[0.16em] text-ink hover:bg-cream"
+            >
+              Comienza hoy
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      </section>
+
+      {/* Propuesta de valor: frase central que resume el enfoque clinico del consultorio. */}
+      <section className="mx-auto max-w-3xl px-4 py-16 text-center md:px-6">
+        <p className="font-serif text-3xl leading-snug text-ink md:text-4xl">
+          Consultorio en Gualeguaychú: criterio clínico, medición de composición corporal y un
+          plan que podés sostener.
+        </p>
+      </section>
+
+      {/* Bloque de dos columnas con los dos ejes del servicio: planes de seguimiento y evaluacion de composicion corporal. */}
+      <section className="grid md:grid-cols-2">
+        <div className="bg-sage-dark px-6 py-16 text-white md:px-12">
+          <p className="text-xs uppercase tracking-[0.22em] text-white/70">Planes</p>
+          <h2 className="mt-3 font-serif text-4xl">
+            Gastroenterología, obesidad y seguimiento con datos
+          </h2>
+          <Link
+            href="/planes"
+            className="mt-8 inline-flex rounded-full bg-white px-5 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-ink"
           >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            Selecciona tu plan
+          </Link>
         </div>
-      </main>
-    </div>
+        <div className="bg-sage px-6 py-16 text-white md:px-12">
+          <p className="text-xs uppercase tracking-[0.22em] text-white/70">Evaluación</p>
+          <h2 className="mt-3 font-serif text-4xl">
+            Composición corporal y nutrición con suplementos, cuando corresponde
+          </h2>
+          <Link
+            href="/sobre-mi"
+            className="mt-8 inline-flex rounded-full bg-white px-5 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-ink"
+          >
+            Ver formación y consulta
+          </Link>
+        </div>
+      </section>
+
+      {/* Preview de los planes disponibles. Se renderizan desde el catalogo estatico en lib/data/plans.ts. */}
+      <section className="mx-auto max-w-6xl px-4 py-20 md:px-6">
+        <div className="mb-10 flex items-end justify-between gap-4">
+          <div>
+            <p className="text-xs uppercase tracking-[0.2em] text-sage-dark">Servicios</p>
+            <h2 className="mt-2 font-serif text-4xl">Planes con desglose claro</h2>
+          </div>
+          <Link href="/planes" className="text-sm text-sage-dark underline">
+            Ver todos
+          </Link>
+        </div>
+        <div className="grid gap-6 md:grid-cols-3">
+          {plans.map((plan) => (
+            <article
+              key={plan.id}
+              className={`rounded-3xl p-6 ring-1 ring-sage-soft ${plan.featured ? "bg-sage-dark text-white" : "bg-white"}`}
+            >
+              <p className="text-[11px] uppercase tracking-[0.16em] opacity-80">{plan.priceLabel}</p>
+              <h3 className="mt-2 font-serif text-3xl">{plan.name}</h3>
+              <p className={`mt-3 text-sm ${plan.featured ? "text-white/80" : "text-muted"}`}>
+                {plan.tagline}
+              </p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* Ultimas tres recetas del catalogo. RecipeCard maneja la imagen, los tags y el excerpt. */}
+      <section className="bg-white py-20">
+        <div className="mx-auto max-w-6xl px-4 md:px-6">
+          <p className="text-xs uppercase tracking-[0.2em] text-sage-dark">Cocina</p>
+          <h2 className="mt-2 font-serif text-4xl">Últimas recetas</h2>
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {recipes.slice(0, 3).map((recipe) => (
+              <RecipeCard key={recipe.id} recipe={recipe} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonios de pacientes. Datos estaticos en lib/data/testimonials.ts. */}
+      <section className="mx-auto max-w-6xl px-4 py-20 md:px-6">
+        <p className="text-xs uppercase tracking-[0.2em] text-sage-dark">Historias</p>
+        <h2 className="mt-2 font-serif text-4xl">Testimonios</h2>
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+          {testimonials.map((item) => (
+            <blockquote key={item.name} className="rounded-3xl bg-white p-6 ring-1 ring-sage-soft">
+              <p className="font-serif text-2xl leading-snug text-ink">“{item.quote}”</p>
+              <footer className="mt-6 text-sm text-muted">
+                {item.name} · {item.role}
+              </footer>
+            </blockquote>
+          ))}
+        </div>
+      </section>
+    </>
   );
 }
