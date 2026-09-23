@@ -40,12 +40,6 @@ Sin esas variables el sitio público funciona con datos de ejemplo y el portal c
 
 Las políticas RLS aíslan `profiles` y `patient_meal_plans` por `auth.uid()`. Un paciente no puede leer el menú de otro.
 
-## Deploy $0/mes
-
-1. Subí el repo a GitHub.
-2. Importá el proyecto en [vercel.com](https://vercel.com) (Hobby).
-3. Cargá las dos variables `NEXT_PUBLIC_*`.
-4. Deploy. No hace falta servidor extra ni storage de video.
 
 ## Protección del visor de plan
 
